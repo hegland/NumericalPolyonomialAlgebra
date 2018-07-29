@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>ch1</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}});
+        </script>
+        <script type="text/javascript" async src="file:////home/hegland/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js"></script>
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Anand Deopurkar and Markus Hegland">
+  <title>Special topics course Numerical Polynomial Algebra</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <span class="math display">\[\newcommand{\N}{\mathbb{N}}\]</span> <span class="math display">\[\newcommand{\Q}{\mathbb{Q}}\]</span> <span class="math display">\[\newcommand{\R}{\mathbb{R}}\]</span> <span class="math display">\[\newcommand{\C}{\mathbb{C}}\]</span> <span class="math display">\[\newcommand{\T}{\mathcal{T}}\]</span> <span class="math display">\[\newcommand{\P}{\mathcal{P}}\]</span> <span class="math display">\[\newcommand{\range}{\operatorname{range}}\]</span> <span class="math display">\[\newcommand{\null}{\operatorname{null}}\]</span> <span class="math display">\[\newcommand{\x}{\underline{x}}\]</span>
+</head>
+<body>
+<header>
+<h1 class="title">Special topics course Numerical Polynomial Algebra</h1>
+<p class="author">Anand Deopurkar and Markus Hegland</p>
+<p class="date">ANU winter semester 2018</p>
+</header>
+<h1 id="chapter-1-numerical-introduction">Chapter 1: Numerical introduction</h1>
+<h1 id="introductory-section-numerical-aspects">introductory section – numerical aspects</h1>
+<ul>
+<li>here we consider polynomial systems of equations for the real and complex fields</li>
+<li>polynomial systems of equations are a generalisation of linear systems of equations which include powers <span class="math inline">\(x_i^k\)</span> and products of powers of the unknowns</li>
+<li>applications of polynomial systems of equations:
+<ul>
+<li>computing Gaussian quadrature points</li>
+<li>computing coefficients of Runge-Kutta methods</li>
+<li>eigenvalue problems</li>
+<li>rank-k matrix approximation</li>
+<li>tensor approximations and decompositions</li>
+<li>polynomial optimisation</li>
+<li>semidefinite programming</li>
+<li>machine learning</li>
+<li>robotics</li>
+<li>cryptography</li>
+<li>…</li>
+</ul></li>
+<li>for some cases there are stable and well-studied methods using specialised algorithms</li>
+<li>for some cases very large systems can be solved using general (Buchberger-based) algorithms</li>
+<li>in some cases even small system are practically unsolvable</li>
+<li>algorithms in the rational field and finite fields are often effective</li>
+<li>algorithms for the real and complex fields based on floating point numbers are often unstable</li>
+<li>simple example is Euclid’s algorithm which is related to Gaussian elimination (without pivoting)
+<ul>
+<li>problems to solve are Toeplitz systems</li>
+<li>some numerical problems can be illustrated there</li>
+<li>algorithms based on stable (QR) algorithms have been investigated</li>
+</ul></li>
+</ul>
+<h2 id="linear-spaces-of-polynomials">1.1 Linear spaces of polynomials</h2>
+<p>This section is based on section 1.1 in Stetter’s book. Here we define the linear space of multivariate polynomials. We first define the monomial basis. A univariate monomial is a power <span class="math inline">\(x^j\)</span> for <span class="math inline">\(x\in\R\)</span> and <span class="math inline">\(j\in\N_0\)</span> where <span class="math inline">\(\N_0\)</span> is the set of non-negative integers. A multivariate monomial is a product of the powers of the variables, i.e., <span class="math display">\[x^j = x_1^{j_1}\cdots x_s^{j_s}\]</span> where <span class="math inline">\(x\in\R^s\)</span> and <span class="math inline">\(j\in\N_0^s\)</span>. The <em>set of (s-variate) monomials</em> <span class="math inline">\(\T^s\)</span> is <span class="math display">\[\T^s = \{x^j \mid x\in\R^s,\; j\in\N_0^s\}.\]</span> The set of monomials is <em>closed under multiplication</em>, i.e., if <span class="math inline">\(x^j, x^k\in \T^s\)</span> then <span class="math inline">\(x^j*x^k = x^{j+k}\in \T^s\)</span>. As the multiplication is associative we have</p>
+<p><strong>Proposition:</strong> The set <span class="math inline">\((\T^s,*)\)</span> of monomials is a symmetric semigroup with unit <span class="math inline">\(1\)</span>.</p>
+<p><em>proof:</em> use map <span class="math inline">\(x^j \rightarrow j\)</span></p>
+<p><strong>Definition:</strong> A <em>semigroup</em> <span class="math inline">\((S,*)\)</span> is a set <span class="math inline">\(S\)</span> with a binary operation <span class="math inline">\(*\)</span> satisfying the associative law <span class="math display">\[a*(b*c) = (a*b)*c\]</span></p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><p>non-negative integers <span class="math inline">\((\N_0,+)\)</span> <span class="math display">\[\N_0 = \{0,1,2,\ldots \}\]</span></p>
+<ul>
+<li>is symmetric and contains unit 0</li>
+<li>does not contain negative integers and thus is not a group</li>
+</ul></li>
+<li><p>vectors of non-negative integers <span class="math inline">\((\N_0^s,+)\)</span></p></li>
+</ul>
+<p><strong>Proposition:</strong> The semigroup <span class="math inline">\((\T^s,*)\)</span> is isomorph to <span class="math inline">\((\N_0^s,+)\)</span>.</p>
+<p><strong>Definition:</strong> The set of <span class="math inline">\(s\)</span>-variate polynomials is <span class="math display">\[\P^s = \{p(x) = \sum_{j\in J} c_j x^j \mid J\subset \N_0^s, |J| &lt; \infty, c_j\in\R\}.\]</span></p>
+<p>Here <span class="math inline">\(|J|\)</span> denotes the cardinality (size) of the set <span class="math inline">\(J\)</span>. A shorthand notation for this is <span class="math display">\[\P^s = \R(\T^s).\]</span></p>
+<p>From the definition it follows that <span class="math inline">\(\P^s\)</span> is a <em>commutative algebra</em>, i.e.,</p>
+<ul>
+<li>a real vector space with component-wise addition and multiplication by reals</li>
+<li>a ring with the multiplication defined by <span class="math display">\[p(x)q(x) = \sum_{j,k}c_j d_k x^{j+k}\]</span> where <span class="math inline">\(p(x) = \sum_j c_j x^j\)</span> and <span class="math inline">\(q(x)= \sum_k d_k x^k\)</span>.</li>
+</ul>
+<p>In practice, the polynomials occurring are sparse, i.e., the size <span class="math inline">\(|J|\)</span> in the sums are small.</p>
+<hr>
+<p>In computations, the degree of the polynomials will be limited. One uses, for example</p>
+<p><strong>Definition:</strong> (monomials with finite degree)</p>
+<p><span class="math display">\[\T_d^s = \{x^j \in \T^s \mid |j| &lt; d\}\]</span></p>
+<p>where degree of <span class="math inline">\(x^j\)</span> is <span class="math inline">\(|j| = j_1+\cdots+j_s\)</span></p>
+<ul>
+<li><span class="math inline">\(\T_d^s\)</span> is not a semigroup</li>
+</ul>
+<p>Generating a vector space from this set gives polynomials of degree <span class="math inline">\(d\)</span> <span class="math display">\[\P_d^s = \R(\T_d^s).\]</span></p>
+<p>The size <span class="math inline">\(\T_d^s = \binom{d+s}{s}\)</span> is equal to the dimension of the vector space <span class="math inline">\(\P_d^s\)</span>.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><span class="math inline">\(\T_d^1 = \{1,x,x^2,\ldots,x^d\}\)</span> which generates <span class="math display">\[\P_d^1 = \R(\T_d^1),\]</span> the univariate polynomials of degree up to <span class="math inline">\(d\)</span> and</li>
+<li><span class="math inline">\(\T_1^s = \{1,x_1,x_2,\ldots,x_s\}\)</span> which generates <span class="math display">\[\P_1^s = \R(\T_1^s),\]</span> the multivariate polynomials of degree up to one.</li>
+</ul>
+<p>In some applications one uses the tensor product of univariate polynomials of a fixed degree and has <span class="math display">\[\T_d^{\otimes s} = \{x^j \in \T^s \mid j_i = 0,\ldots,d, \; i=1,2,\ldots,s\}\]</span> which generates <span class="math display">\[\P_d^{\otimes s} = \R(\T_d^{\otimes s}) = \P_d^1\otimes \cdots \otimes \P_d^1.\]</span></p>
+<hr>
+<p>For a given finite subset of <span class="math inline">\(\T^s\)</span> one defines the vector of basis functions for the corresponding polynomial vector space as array <span class="math inline">\(\x = (x^j)_{j\in J}\)</span>. A polynomial in the space <span class="math inline">\(\P_J\)</span> generated by <span class="math inline">\(x^j\)</span> for <span class="math inline">\(j\in J\)</span> then takes the form <span class="math display">\[p(x) = c^T \x\]</span> where <span class="math inline">\(c\in\R^{|J|}\)</span>.</p>
+<p>For example, if <span class="math inline">\(J=\{0,\ldots,d\}\)</span> then <span class="math display">\[\x = (x^d,x^{d-1},\ldots,1)^T\]</span> (we will order highest degree first). Then <span class="math inline">\(c^T\x\)</span> generates all the elements of <span class="math inline">\(\P^1_d\)</span>, i.e. <span class="math display">\[\P^1_d = \{c^T\x \mid c\in \R^{d+1}\}.\]</span> If <span class="math inline">\(J=\{e_1,e_2,\ldots,e_s,0\}\)</span> where <span class="math inline">\(e_i\)</span> is the i-th standard basis vector and 0 the zero vector one has <span class="math display">\[\x=(x,1)^T=(x_1,x_2,\ldots,x_s,1)^T\]</span> which generates the elements of <span class="math inline">\(\P^s_1\)</span>, i.e., <span class="math display">\[\P_1^s = \{c^T \x \mid c\in \R^{s+1}\}\]</span> in this case.</p>
+<p><strong>Definition:</strong> A polynomial system <span class="math inline">\(P(x)\)</span> is an array of polynomials <span class="math inline">\(p_i(x)\in \P^s\)</span> such that <span class="math display">\[P(x) = \begin{bmatrix}p_1(x)\\ \vdots \\ p_n(x)\end{bmatrix}.\]</span></p>
+<p>A polynomial system (or system of polynomials) can be expressed as the matrix vector product <span class="math display">\[P(x) = C \x\]</span> for some matrix <span class="math inline">\(C\in \R^{n\times |J|}\)</span>.</p>
+<h2 id="solutions-of-polynomial-systems-of-equations">1.2 Solutions of polynomial systems of equations</h2>
+<p>This section includes basic material plus topics from Section 1.2 of Stetter’s book.</p>
+<p><strong>Definition:</strong> A real (complex) solution or zero of a polynomial system is a vector <span class="math inline">\(x\in\R^s\)</span> (<span class="math inline">\(x\in\C^s\)</span>) which satisfies <span class="math display">\[P(x) = 0.\]</span></p>
+<p>From a mathematical perspective, we are interested in two questions:</p>
+<ul>
+<li>Does a particular polynomial system have a solution?</li>
+<li>What is the nature of the set of all solutions of a polynomial system? (Eg, is it a smooth curve or manifold, a point or a line or vector space?)</li>
+</ul>
+<h3 id="solutions-of-univariate-polynomial-systems">Solutions of univariate polynomial systems</h3>
+<p>We remember first that zero degree polynomials have no zeros (unless the are the zero polynomial which has value identical zero). In the following we implicitly assume that any polynomial we are talking about is not the zero polynomial.</p>
+<p>Then we also know that any polynomial of degree one has exactly one zero. This is valid for any field, including <span class="math inline">\(\R\)</span> and <span class="math inline">\(\C\)</span>.</p>
+<p>The following is an application of a theorem for continuous functions as polynomials are continuous.</p>
+<p><strong>Proposition:</strong> Any real, univariate polynomial which has both positive and negative function values has at least one real zero.</p>
+<p>A direct consequence is</p>
+<p><strong>Corollary:</strong> Any real univariate polynomial of odd degree has at least one real zero.</p>
+<p>However, not all real univariate polynomials have real zeros, a simple example is <span class="math inline">\(p(x) = x^2 +1\)</span>. A fundamental result of algebra, however, is the following.</p>
+<p><strong>Theorem:</strong> Any complex polynomial of degree larger than zero has at least one (complex) zero.</p>
+<p>Note, however, that a system with <span class="math inline">\(n&gt;1\)</span> univariate polynomial equations may not have a solution. For example, the system <span class="math display">\[\begin{align*} x^2 - 1 &amp;= 0 \\ x^3-1 &amp;= 0\end{align*}\]</span> has the solution <span class="math inline">\(x=1\)</span> while the system <span class="math display">\[\begin{align*} x^2 - 4 &amp;= 0\\ x^3-1 &amp;= 0\end{align*}\]</span> does not have a solution.</p>
+<p>The nature of the set of solutions is provided now:</p>
+<p><strong>Proposition:</strong> The set of all solutions of a system of real or complex univariate polynomials is finite and may have at most <span class="math inline">\(d\)</span> elements where <span class="math inline">\(d\)</span> is the degree of the system.</p>
+<p>Summarising, for the case <span class="math inline">\(s=1\)</span> one has a good understanding of the set of solutions using results from algebra and calculus.</p>
+<h4 id="solutions-of-linear-systems-of-equations">Solutions of linear systems of equations</h4>
+<p>In this case of first degree polynomials in <span class="math inline">\(\P^s_1\)</span> and the polynomial system is given by <span class="math display">\[P(x) = \begin{bmatrix}A &amp; -b \end{bmatrix} \begin{bmatrix}x \\ 1\end{bmatrix} = Ax - b.\]</span> The matrix is <span class="math inline">\(A\in\R^{n,s}\)</span>. Now let <span class="math display">\[\range(A) = \{Ax \mid x \in \R^s\}\]</span> be the <em>range</em> of the matrix <span class="math inline">\(A\)</span>. By definition one has</p>
+<p><em>A linear system <span class="math inline">\(Ax-b=0\)</span> has a solution <span class="math inline">\(x\)</span> if <span class="math display">\[b\in \range(A).\]</span></em></p>
+<p>A general <span class="math inline">\(b\in\R^n\)</span> can be decomposed as <span class="math display">\[b = b_1 + b_2\]</span> where <span class="math inline">\(b_1\in\range(A)\)</span> and <span class="math inline">\(b_2\in\range(A)^\perp\)</span>, i.e., <span class="math inline">\(b_2\)</span> is orthogonal to the range. It follows that we have a solution only if <span class="math inline">\(b_2=0\)</span>.</p>
+<p>Now for any <span class="math inline">\(y\in \range(A)^\perp\)</span> one has <span class="math display">\[(Ax)^T y = 0\]</span> for all <span class="math inline">\(x\in\R^s\)</span> and thus <span class="math inline">\(y\)</span> has to satisfy the homogeneous system of equations <span class="math display">\[A^T y = 0.\]</span> The set of all such <span class="math inline">\(y\)</span> is called the <em>null-space</em> of <span class="math inline">\(A\)</span> <span class="math display">\[\null(A^T) = \{y \mid A^T y = 0\}\]</span> and thus <span class="math display">\[\range(A)^\perp = \null(A^T).\]</span></p>
+<p>If the nullspace of <span class="math inline">\(A\)</span> is nontrivial (not equal <span class="math inline">\(\{0\}\)</span>) then the determinant of <span class="math inline">\(A\)</span> is zero <span class="math display">\[\det(A)=0.\]</span> Note that the determinant is a polynomial in the matrix elements and thus the nullspace is a solution of a particular polynomial equation.</p>
+<p>If <span class="math inline">\(b\in\range(A)\)</span> it has to be orthogonal to <span class="math inline">\(\range(A)^\perp\)</span> and one gets the major result of linear algebra:</p>
+<p><strong>Proposition:</strong> The linear system <span class="math inline">\(Ax=b\)</span> <em>has a solution</em> if <span class="math inline">\(b\)</span> is orthogonal to any vector <span class="math inline">\(y\in \null(A^T)\)</span>.</p>
+<p>The null space <span class="math inline">\(\null(A)\)</span> can be shown to be a linear space with dimension <span class="math inline">\(s-r\)</span> where <span class="math inline">\(r\)</span> is the rank of the matrix <span class="math inline">\(A\)</span> (which basically is defined by the dimension of the null space). One can see that if <span class="math inline">\(x\)</span> is a solution of <span class="math inline">\(Ax=b\)</span> and <span class="math inline">\(y\in\null(A)\)</span> then <span class="math inline">\(x+y\)</span> is also a solution as <span class="math inline">\(A(x+y) = b\)</span>. One then has a characterisation of all the solutions of <span class="math inline">\(Ax=b\)</span>:</p>
+<p><strong>Proposition:</strong> The set of solutions of <span class="math inline">\(Ax=b\)</span> is an <em>affine set</em> given by <span class="math display">\[\{x+y \mid Ay = 0\}\]</span> for any solution <span class="math inline">\(x\)</span> of <span class="math inline">\(Ax=b\)</span>.</p>
+<p>The original characterisation <span class="math inline">\(Ax+b=0\)</span> of the solutions and the proposition above give an <em>implicit</em> description of the set of solutions. As the null space of <span class="math inline">\(A\)</span> is a linear or vector space, there exists a matrix <span class="math inline">\(Y\in\R^{s,m}\)</span> such that <span class="math inline">\(AY=0\)</span> and where the columns of <span class="math inline">\(Y\)</span> are just the basis of the null space of <span class="math inline">\(A\)</span>. It then follows that the set of solutions of <span class="math inline">\(Ax -b=0\)</span> can be represented as <span class="math display">\[\{x+Yt \mid t\in \R^m\}.\]</span> Note that <span class="math inline">\(m\)</span> is the dimension of the null space of <span class="math inline">\(A\)</span>. We call this representation <em>explicit</em>.</p>
+<p>As in the case of univariate polynomials one also has a good idea of what the solutions are for linear systems of equations. The situation is not as simple for higher degree multivariate polynomials.</p>
+<h4 id="inverse-function-theorem">Inverse function theorem</h4>
+<p>The next theorem reduces the theory of nonlinear problems to linear problems for the case <span class="math inline">\(s=n\)</span>. Here we consider continuously differentiable functions <span class="math inline">\(F\)</span>. We will use the <em>Jacobi matrix</em> which we denote by <span class="math display">\[J_F(x)=F^\prime(x)=\begin{bmatrix}\partial F_1(x)/\partial x_1 &amp; \cdots &amp; \partial F_1(x)/\partial x_s\\ \vdots &amp; &amp; \vdots \\ \partial F_n(x)/\partial x_1 &amp; \cdots &amp; \partial F_n(x) / \partial x_s\end{bmatrix}.\]</span></p>
+<p><strong>Inverse Function Theorem:</strong> <em>Let <span class="math inline">\(F: \R^s \rightarrow \R^s\)</span> be <span class="math inline">\(C^1\)</span> in a neighborhood of some point <span class="math inline">\(x_0\in \R^s.\)</span> If the null space <span class="math display">\[\null(F^\prime(x_0))=0\]</span> then <span class="math inline">\(F\)</span> is invertible in a neighborhood of <span class="math inline">\(x_0\)</span>.</em></p>
+<p>This means that the equation <span class="math display">\[F(x) = F(x_0) + y\]</span> has a unique solution <span class="math inline">\(x\)</span> for all <span class="math inline">\(y\)</span> in a neigborhood of <span class="math inline">\(F(x_0)\)</span>.</p>
+<h4 id="solutions-of-polynomial-systems-of-equations-1">Solutions of polynomial systems of equations</h4>
+<p>This is related to the section 1.2 of Stetter’s book.</p>
+<p>We will denote the Jacobian of a polynomial by <span class="math inline">\(P^\prime(x) = J_P(x)\)</span>.</p>
+<p>More generally, we introduce differential operators related to polynomials. Let the gradient be <span class="math display">\[\partial = \nabla = (\partial_1,\ldots,\partial_s).\]</span> (A row vector.) Then let <span class="math display">\[\partial_j = \nabla^j = \frac{1}{j!}\frac{\partial^{|j|}}{\partial x^j}\]</span> where</p>
+<ul>
+<li><span class="math inline">\(j! = j_1! \cdots j_s!\)</span></li>
+<li><span class="math inline">\(|j|=j_1+\cdots+j_s\)</span></li>
+<li><span class="math inline">\(\partial x^j = \partial x_1^{j_1}\cdots \partial x_s^{j_s}\)</span></li>
+</ul>
+<p>Furthermore, let <span class="math inline">\(q(x) = \sum_j b_j x_j\)</span> then we define <span class="math display">\[q(\partial) = \sum_j b_j \partial_j.\]</span></p>
+<p>Then one has</p>
+<p><strong>Proposition:</strong> (Leibniz rule) <span class="math display">\[\partial_j (p\cdot q) = \
+\sum_{k\leq j} \partial_{j-k}p\, \partial_k q\]</span></p>
+<p><strong>Proposition:</strong> (derivative of polynomials)</p>
+<p><em>If <span class="math inline">\(p\in\P_d^s\)</span> then</em></p>
+<ul>
+<li><em><span class="math inline">\(\partial_j p \in \P_{d-|j|}^s\)</span> for <span class="math inline">\(|j| \leq d\)</span></em></li>
+<li><em><span class="math inline">\(\partial_j p = 0\)</span> for <span class="math inline">\(|j|&gt;d\)</span></em></li>
+</ul>
+<p><strong>Proposition:</strong> (Taylor)</p>
+<p><span class="math display">\[p(x+h) = \sum_{k=0}^d \sum_{|j|=k} \partial_j p(x)\, h^j =: p(h; x)\]</span></p>
+<p><strong>Proposition:</strong> (zero polynomial) <em>A polynomial <span class="math inline">\(p(x)\)</span> defines the zero mapping if and only if it is the zero polynomial (i.e. has only zero coefficients).</em></p>
+<p><strong>proof</strong>: induction over <span class="math inline">\(s\)</span>:</p>
+<ul>
+<li>show for <span class="math inline">\(s=1\)</span></li>
+<li><span class="math inline">\(p(x) = p(x_1,...,x_{s-1},x_s)\)</span> is univariate in <span class="math inline">\(x_s\)</span> …</li>
+</ul>
+<p><strong>Proposition:</strong> (existence in <span class="math inline">\(\C^s\)</span>) <em>Any polynomial <span class="math inline">\(p\in \P^s\)</span> has at least one zero in <span class="math inline">\(\C^s\)</span> if <span class="math inline">\(s&gt;0\)</span>.</em></p>
+<p><strong>proof:</strong> induction as before</p>
+<p><strong>Definition:</strong> A polynomial system <span class="math inline">\(P(x)\)</span> is <em>essentially linear</em> if <span class="math inline">\(\det(P^\prime(x))\)</span> is constant.</p>
+<p><strong>Proposition:</strong> <em>If <span class="math inline">\(n=s\)</span>, a polynomial system <span class="math inline">\(P(x)\)</span> has a non-invertible Jacobian at least in one point <span class="math inline">\(x\in \C^s\)</span> unless <span class="math inline">\(P(x)\)</span> is essentially linear.</em></p>
+<p><strong>proof:</strong> induction as before and note that determinant of Jacobian is a polynomial</p>
+<h2 id="floating-point">1.3 Floating point</h2>
+<ul>
+<li>relative error model</li>
+</ul>
+<h2 id="random-polynomials">1.4 Random polynomials</h2>
+</body>
+</html>
+
+      </div>
+      
+      
+    </body>
+    
+    
+    
+    
+    
+    
+    
+  </html>
