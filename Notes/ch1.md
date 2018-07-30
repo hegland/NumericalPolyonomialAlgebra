@@ -339,4 +339,44 @@ Our computations will take one polynomial system and compute another one using m
 
 ## 1.4 Gaussian elimination
 
+The topic of this course is the direct (numerical) solution of polynomial systems of equations using floating point arithmetic. The algorithms are generalisations of Gaussian elimination algorithms. The key idea of Gaussian elimination is the transformation of a general linear system of equations to a triangular system of equations which has the same solutions. The motivation for this transformation is that triangular systems can be solved more conveniently.
+
+**Definition:** *A triangular polynomial system of equations*
+$$P(x) = \begin{bmatrix} p_1(x) \\ \vdots \\ p_n(x) \end{bmatrix}$$ *has components $p_k(x)$ which only depend on the variables $x_k\,\ldots,x_n$:*
+$$p_k(x) = p_k(x_k,\ldots,x_n), \quad k=1,\ldots,n.$$
+Such a triangular system computes the components $x_k^*$ of the solution by *back substitution:*
+
+* for $k=n,\ldots, 1$ solve the univariate polynomial equations
+  $$p_k(x_k,x_{k+1}^*,\ldots,x_n^*)=0$$
+  to get $x_k^* = x_k$.
+
+Gaussian elimination achieves the transformation purely by linear operations and uses the observation
+
+**Proposition:** *Let $M\in\R^{n\times n}$ be an invertible matrix. Then the two polynomial systems of equations $P(x)=0$ and $MP(x) = 0$ have the same solutions.*
+
+This proposition is valid for polynomial systems, however, in order to solve these systems one requires a bit more. For linear systems of equations, however, this result is sufficient to formulate the major direct solvers. Examples of matrices $M$ used in the construction of the algorithms include
+
+**Examples:**
+
+* $M$ is a *permutation matrix*
+* $M = I - u e_k^T$ is an *elementary matrix* where $u$ is such that $e_k^T u = 0$
+* $M = I - 2 u u^T$ is a *Householder transform (or reflection)* where $\|u\|=1$, $M$ is symmetric and $M^{-1} = M$
+
+For example, let
+$$P^{(0)}(x_1,x_2) = \begin{bmatrix} 2x_1 + x_2 -1 \\ 4x_1 - x_2 + 4 \end{bmatrix} = C^{(0)} \begin{bmatrix} x \\ 1 \end{bmatrix} = \begin{bmatrix} 2 & 1 & -1 \\ 4 & -1 & 4 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ 1 \end{bmatrix}$$
+then choosing the elementary matrix $$M^{(1)} = \begin{bmatrix} 1 & 0 \\ -2 & 1 \end{bmatrix}$$ provides the matrix $$C^{(1)} = M^{(1)} C^{(0)} = \begin{bmatrix} 2 & 1 & -1\\ 0 & -3 & 6 \end{bmatrix}$$ and the triangular system $$P^{(1)}(x) = C^{(1)}\begin{bmatrix} x \\ 1 \end{bmatrix} = \begin{bmatrix} 2 x_1 + x_2 - 1 \\ -3 x_2 + 6 \end{bmatrix}.$$
+
+More generally, for a given $P^{(0)}(x) \in (\P_1^s)^n$ with $s=n$ the following algorithm reduces $P^{(0)}$ to an equivalent (same solutions) triangular system of equations. Note that in this case $$P^{(0)}(x) = C^{(0)}\x = \begin{bmatrix} A , b \end{bmatrix}\begin{bmatrix} x \\ 1 \end{bmatrix}$$ and the algorithm computes the coefficient matrices $C^{(k)}$ of the polynomial systems $P^{(k)}(x) = C^{(k)}\x$:
+
+**Algorithm:** (Gaussian elimination)
+
+* $C^{(0)} = \begin{bmatrix} A, b \end{bmatrix}$
+* $C^{(k)} = (I-l^{(k)}e_k^T)\, C^{(k-1)}, \quad k=1,\ldots,n-1$ where
+    * $l_k = (0,\ldots,0,l_{k+1}^{(k)},\ldots,l_n^{(k)})$
+    * $l_j^{(k)} = C_{jk}^{(k-1)}/C_{kk}^{(k-1)}, \; j=k+1,\ldots,n.$
+
+Note that Gaussian elimination *breaks down* if $C_{kk}^{(k-1)}=0$ and $C_{kj}^{(k-1)}\neq 0$ for $j>0$. Furthermore, *numerical instability* occurs if $C_{kk}^{(k-1)}$ is very small compared to the other elements in the same column. To avoid these effects the rows of $C^{(k-1)}$ are permuted before the elimination step guaranteeing that
+$$|C_{kk}^{(k-1)}| \geq |C_{jk}^{(k-1)}|, \quad \text{for all $j>k$.}$$ The resulting algorithm is then called *Gaussian elimination with partial pivoting.* In some cases, the results may have poor accuracy despite the application of pivoting. This may be due to ill-conditioning of the original system. This will be further discussed in the next section. Approaches to deal with this make use of other knowledge available about the solution including sparsity or smoothness.
+
+
 ## 1.5 Solving inexact systems
