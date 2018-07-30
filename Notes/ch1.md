@@ -4,14 +4,16 @@ author: Anand Deopurkar and Markus Hegland
 date: ANU winter semester 2018
 header-includes:
   $$\newcommand{\N}{\mathbb{N}}$$
+  $$\newcommand{\Z}{\mathbb{Z}}$$
   $$\newcommand{\Q}{\mathbb{Q}}$$
   $$\newcommand{\R}{\mathbb{R}}$$
-  $$\newcommand{\C}{\mathbb{C}}$$
   $$\newcommand{\T}{\mathcal{T}}$$
+  $$\newcommand{\F}{\mathcal{F}}$$
   $$\newcommand{\P}{\mathcal{P}}$$
   $$\newcommand{\range}{\operatorname{range}}$$
   $$\newcommand{\null}{\operatorname{null}}$$
-  $$\newcommand{\x}{\underline{x}}$$
+  $$\newcommand{\x}{\underline{\mathbf{x}}}$$
+  $$\newcommand{\qed}{\blacksquare}$$
 ...
 # Chapter 1: Numerical introduction
 
@@ -259,8 +261,82 @@ $$p(x+h) = \sum_{k=0}^d \sum_{|j|=k} \partial_j p(x)\, h^j =: p(h; x)$$
 
 **proof:** induction as before and note that determinant of Jacobian is a polynomial
 
-## 1.3 Floating point
+## 1.3 Floating point numbers and computations
 
-* relative error model
+When solving polynomial systems in the real and complex fields one requires approximations. There are basically two possibilities which can be illustrated
 
-## 1.4 Random polynomials
+1. Approximation in the rational field $\Q$
+2. Approximation in the set $\F(D)$ of floating point numbers
+
+The first approach has the advantage that all the computations can be done in $\Q$. However, the denominators may become very large when the computations are extensive and one thus requires to monitor the size of the denominators and approximate when required. Here we will choose computations with floating point numbers which is the default choice for real computations in computational science. A disadvantage is that essentially all computations performed in floating point arithmetic are done approximately. However, this is done automatically and only the effects are visible to the user.
+
+We will use base 2 for our floating point numbers and consider a slightly idealised infinite set for our theoretical discussions, basically neglecting the effects of over- and under-flow. The floating point numbers depend on the number digits $D$ used to compute which has a big effect on the accuracy. The **set of floating point numbers** is
+$$\F(D) = \{\pm m\, 2^E \mid m = n\,2^{-D}, \; n = 2^{D-1},2^{D-1}+1, \ldots,2^D-1,\; E\in\Z \}\cup \{0\}.$$
+
+The rational number $m$ is called the mantissa and the integer $E$ the exponent. In practice the range of $E$ is also bounded (which gives rise to over- and under-flow errors). The representation with two integers $n$ and $E$ characterises each nonzero floating point number uniquely. Note that one does require to represent the number zero separately.
+
+The set of floating point numbers $\F(D)\subset \Q$ contains binary fractions which are distributed in a *semi-logarithmic* fashion:
+
+**Proposition:** Every interval $[2^{E-1},2^E]$ contains $2^{D-1}$ floating point numbers which are spaced equally in that subinterval.
+
+Algebraically, set of floating point numbers $\F(D)$ is
+
+* not a field, group or ring with respect to $+$ and $*$, but
+* is *self-similar* as $$2\F = \F.$$
+
+The main approximation tool is the rounding function.
+
+**Definition:** *A rounding function $\phi: \R\rightarrow \F(D)$ satisfies*
+
+* $\phi(-x) = -\phi(x)$ for $x\in \R$ (odd function)
+* $x_1 < x_2 \Rightarrow \phi(x_1) \leq \phi(x_2)$ (monotone function)
+
+**Definition:** *A rounding function $\phi$ is optimal if*
+
+$$|\phi(x) - x| \leq |y-x|, \quad \text{for all $y\in\F(D)$}.$$
+
+Note that there multiple optimal rounding functions, however, for use the particular choice of an optimal rounding function makes no difference.
+
+For all optimal rounding functions one has the following error bound:
+
+**Proposition:** *Let $\phi: \R \rightarrow \F(D)$ be an optimal rounding function. Then the rounding error satisfies
+$$\phi(x) - x = \delta\, |x|$$
+for some $\delta$ satisfying*
+$$|\delta| \leq \frac{1}{2^{D-1}-1}.$$
+
+**proof:**
+
+As $\phi(x)\in\F(D)$ there exists an integer $n\in[2^{D-1},2^D)$ and an integer $E$ such that $$\phi(x) = \pm n\, 2^{-D}\cdot 2^E.$$ One can see that $$|x|\in(n-1,n+1)\,2^{E-D}$$ and has the same sign as $\phi(x)$.
+Consequently, $$|x| \geq (2^{D-1}-1)\,2^{E-D} = \left(\frac{1}{2} - \frac{1}{2^D}\right)\, 2^E.$$ Furthermore, one derives $$|\phi(x) - x| \leq 2^{E-D}$$  and thus $$|\phi(x)-x| \leq \frac{2^{E-D}}{(1/2-1/2^D)2^E}=\frac{1}{2^{D-1}-1}.$$ $\qed$
+
+--------------------------------------------
+
+The rounding error is thus bounded relatively, i.e., one can guarantee that a fixed number of digits of the rounded number are accurate.
+
+In the following we will only consider functions on $\F(D)$ which are defined as real functions by
+$$f_D(x) = \phi(f(x)).$$
+We call these functions floating point functions and also consider the case where $x$ and $f(x)$ are arrays of floating point numbers by rounding component-wise.
+
+A special class of floating point functions define the floating point arithmetic operations defined, e.g., as
+$$x_1 +_D x_2 = \phi(x_1+x_2).$$
+
+The thus defined *floating point arithmetic* does not satisfy the usual laws of arithmetic, instead, one has:
+
+**Proposition:**
+
+* floating point addition and multiplication are commutative
+* $x_1 -_D x_2 = x_1 +_D (-x_2)$
+* floating point operations are neither associative not distributive
+* in general $(x_1 -_D x_2)+_D x_2 \neq x_1$
+* in general $\phi(\sqrt{x*_D x})  \neq x$
+
+
+We will in the following often just use $x_1+x_2$ for floating point additions as well if no confusion is possible.
+
+### Floating point computations
+
+Our computations will take one polynomial system and compute another one using mostly arithmetic operations. As each arithmetic operation on floating point numbers introduces an error in general we will end up with an error in the resulting polynomial system and thus in the resulting solutions. In the next section we consider an example of the computations illustrated for linear systems of equations and in the section after that we will discuss how the error in the polynomial system may affect the solution.
+
+## 1.4 Gaussian elimination
+
+## 1.5 Solving inexact systems
