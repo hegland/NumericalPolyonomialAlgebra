@@ -381,4 +381,37 @@ Note that Gaussian elimination *breaks down* if $C_{kk}^{(k-1)}=0$ and $C_{kj}^{
 $$|C_{kk}^{(k-1)}| \geq |C_{jk}^{(k-1)}|, \quad \text{for all $j>k$.}$$ The resulting algorithm is then called *Gaussian elimination with partial pivoting.* In some cases, the results may have poor accuracy despite the application of pivoting. This may be due to ill-conditioning of the original system. This will be further discussed in the next section. Approaches to deal with this make use of other knowledge available about the solution including sparsity or smoothness.
 
 
-## 1.5 Solving inexact systems
+## 1.5 Solving systems with uncertainty
+
+The is connected to chapter 3 of the book by Stetter.
+
+We would like to answer questions regarding polynomial systems of equations of the form $$P(x) = 0$$ like
+
+* Is $x$ (or set of $x$) a solution?
+* Does the polynomial system $Q(x)=0$ have the same solutions?
+
+We will say that $P(x)$ is *well posed* if
+
+* There exists a set $V$ of solutions, i.e., $V=\{x \mid P(x)=0\}\neq \emptyset$.
+* The set $V$ depends continuously on $P$.
+
+Now of course one does require to define a topology on the polynomial systems $P(x)$ and the sets $V$ -- this shall be done later. At this stage we remark that polynomial systems are computationally challenging as small perturbations of the coefficients $C$ (recall that $P(x) = C \x$) may lead to empty solution sets $V$ if we use real arithmetic. A very simple example is the quadratic equation $x^2 = 0$ which has one solution $x=0$. Perturbing this a little to get $x^2 + \epsilon = 0$ for some small $\epsilon>0$ gives us a problem with no real solution no matter how small $\epsilon$ is. Thus the equation $x^2 + c =0$ is ill-posed for $c=0$.
+
+We now introduce a formalism to model what is going on. We will slightly deviate from Stetter by using probablity distributions. Assume that $P(x)$ is only approximately known. We will consider two cases:
+
+* We know a polynomial system $P_\delta(x)$ which satisfies
+  $\lVert P_\delta - P \rVert \leq \delta$
+  for some (typically unknown) $\delta\geq 0$ or
+* we know a sample $P(x,\omega)$ taken from some (typically unknown)
+  distribution of polynomial systems.
+
+Solving $P_\delta(x)=0$ or $P(x,\omega)=0$ directly may give solutions with very large errors or no solutions at all.
+
+We will now use two different classes of distances between two polynomial systems $P_1(x) = C_1 \x$ and $P_2(x) = C_2 \x$. The first class is just the $l_q$ distance between the functions defined on some interval $[a,b]$, i.e.,
+$$d(P_1,P_2) = \lVert P_1 - P_2 \rVert_q,$$
+and
+$$\lVert P_1 - P_2 \rVert_q = \left(\int_a^b (P_1(x)-P_2(x))^q\, dx\right)^{1/q}$$
+for $q>1$ and
+$$\lVert P_1 - P_2\rVert_\infty = \max_{x\in[a,b]}|P_1(x)-P_2(x)|.$$
+The second class of distances is defined as some norm of the distance of the coefficient matrices, i.e.,
+$$d(P_1,P_2) = \lVert C_1 - C_2 \rVert.$$
