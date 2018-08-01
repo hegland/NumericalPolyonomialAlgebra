@@ -405,9 +405,9 @@ We now introduce a formalism to model what is going on. We will slightly deviate
 * we know a sample $P(x,\omega)$ taken from some (typically unknown)
   distribution of polynomial systems.
 
-Solving $P_\delta(x)=0$ or $P(x,\omega)=0$ directly may give solutions with very large errors or no solutions at all.
+Solving $P_\delta(x)=0$ or $P(x,\omega)=0$ directly may give solutions with very large errors or no solutions at all. Instead we will consider solving all systems $Q(x)=0$ with either $$\lVert Q - P_\delta \rVert \leq \delta$$ or consider a posterior probability distribution using some prior multiplied with the likelihood of our data $P(x,\omega)$ and solving for samples of that posterior  (Bayesian approach). To make this more concise we introduce the distances used.
 
-We will now use two different classes of distances between two polynomial systems $P_1(x) = C_1 \x$ and $P_2(x) = C_2 \x$. The first class is just the $l_q$ distance between the functions defined on some interval $[a,b]$, i.e.,
+We will use two different classes of distances between two polynomial systems $P_1(x) = C_1 \x$ and $P_2(x) = C_2 \x$. The first class is just the $l_q$ distance between the functions defined on some interval $[a,b]$, i.e.,
 $$d(P_1,P_2) = \lVert P_1 - P_2 \rVert_q,$$
 and
 $$\lVert P_1 - P_2 \rVert_q = \left(\int_a^b (P_1(x)-P_2(x))^q\, dx\right)^{1/q}$$
