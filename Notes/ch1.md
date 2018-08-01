@@ -11,6 +11,8 @@ header-includes:
   $$\newcommand{\T}{\mathcal{T}}$$
   $$\newcommand{\F}{\mathcal{F}}$$
   $$\newcommand{\P}{\mathcal{P}}$$
+  $$\newcommand{\Acal}{\mathcal{A}}$$
+  $$\newcommand{\Zcal}{\mathcal{Z}}$$
   $$\newcommand{\range}{\operatorname{range}}$$
   $$\newcommand{\null}{\operatorname{null}}$$
   $$\newcommand{\x}{\underline{\mathbf{x}}}$$
@@ -265,6 +267,8 @@ $$p(x+h) = \sum_{k=0}^d \sum_{|j|=k} \partial_j p(x)\, h^j =: p(h; x)$$
 
 ## 1.3 Floating point numbers and computations
 
+This section is related to chapter 4 of the book by Stetter.
+
 When solving polynomial systems in the real and complex fields one requires approximations. There are basically two possibilities which can be illustrated
 
 1. Approximation in the rational field $\Q$
@@ -376,6 +380,7 @@ More generally, for a given $P^{(0)}(x) \in (\P_1^s)^n$ with $s=n$ the following
 * $C^{(k)} = (I-l^{(k)}e_k^T)\, C^{(k-1)}, \quad k=1,\ldots,n-1$ where
     * $l_k = (0,\ldots,0,l_{k+1}^{(k)},\ldots,l_n^{(k)})$
     * $l_j^{(k)} = C_{jk}^{(k-1)}/C_{kk}^{(k-1)}, \; j=k+1,\ldots,n.$
+    * $e_k = (0,\ldots,0,1,0,\ldots,0)^T$
 
 Note that Gaussian elimination *breaks down* if $C_{kk}^{(k-1)}=0$ and $C_{kj}^{(k-1)}\neq 0$ for $j>0$. Furthermore, *numerical instability* occurs if $C_{kk}^{(k-1)}$ is very small compared to the other elements in the same column. To avoid these effects the rows of $C^{(k-1)}$ are permuted before the elimination step guaranteeing that
 $$|C_{kk}^{(k-1)}| \geq |C_{jk}^{(k-1)}|, \quad \text{for all $j>k$.}$$ The resulting algorithm is then called *Gaussian elimination with partial pivoting.* In some cases, the results may have poor accuracy despite the application of pivoting. This may be due to ill-conditioning of the original system. This will be further discussed in the next section. Approaches to deal with this make use of other knowledge available about the solution including sparsity or smoothness.
@@ -405,9 +410,9 @@ We now introduce a formalism to model what is going on. We will slightly deviate
 * we know a sample $P(x,\omega)$ taken from some (typically unknown)
   distribution of polynomial systems.
 
-Solving $P_\delta(x)=0$ or $P(x,\omega)=0$ directly may give solutions with very large errors or no solutions at all. Instead we will consider solving all systems $Q(x)=0$ with either $$\lVert Q - P_\delta \rVert \leq \delta$$ or consider a posterior probability distribution using some prior multiplied with the likelihood of our data $P(x,\omega)$ and solving for samples of that posterior  (Bayesian approach). To make this more concise we introduce the distances used.
+Solving $P_\delta(x)=0$ or $P(x,\omega)=0$ directly may give solutions with very large errors or no solutions at all.
 
-We will use two different classes of distances between two polynomial systems $P_1(x) = C_1 \x$ and $P_2(x) = C_2 \x$. The first class is just the $l_q$ distance between the functions defined on some interval $[a,b]$, i.e.,
+We will now use two different classes of distances between two polynomial systems $P_1(x) = C_1 \x$ and $P_2(x) = C_2 \x$. The first class is just the $l_q$ distance between the functions defined on some interval $[a,b]$, i.e.,
 $$d(P_1,P_2) = \lVert P_1 - P_2 \rVert_q,$$
 and
 $$\lVert P_1 - P_2 \rVert_q = \left(\int_a^b (P_1(x)-P_2(x))^q\, dx\right)^{1/q}$$
@@ -415,3 +420,15 @@ for $q>1$ and
 $$\lVert P_1 - P_2\rVert_\infty = \max_{x\in[a,b]}|P_1(x)-P_2(x)|.$$
 The second class of distances is defined as some norm of the distance of the coefficient matrices, i.e.,
 $$d(P_1,P_2) = \lVert C_1 - C_2 \rVert.$$
+
+Assume that we have an implementation (an algorithm) of a function $F:\Acal\rightarrow\Zcal$ where $\Acal$ and $\Zcal$ are normed vector spaces. Then the Lipschitz constant $L_F$ of $F$ is such that $$\lVert F(b) - F(a)\rVert \leq L_F \lVert b - a \rVert.$$ If $b$ is an approximation (or perturbation) of $a$ then the Lipschitz constant tells us how much a perturbation of $a$ affects the function value $F(a)$. For example, if $F(a)$ is a matrix vector product $F(a)= Ma$ we have $$\lVert M(b-a)\rVert \leq \lVert M\rVert \, \lVert b-a \rVert$$ and $L_F = \lVert M \rVert$. If we consider  relative errors we have $$\frac{\lVert F(b) - F(a)\rVert}{\lVert F(a)\rVert} \leq \kappa_F \frac{\lVert b-a \rVert}{\lVert a \rVert}.$$ The relative error is mostly considered for linear problems and from the definition it follows that $$\kappa_F = \lVert M \rVert\, \lVert M^{-1}\rVert$$ if $F(a)=Ma$. Note that for linear problems the condition number for multiplying with a matrix and for multiplication with the inverse (i.e. solving a linear system of equations) is the same. The condition number $\kappa_M$ is always larger than one and is equal to the ratio of the largest to the smallest singular value.
+
+We call a problem well-conditioned, if $L_F$ or $\kappa_F$ (the condition number) is small and ill-conditioned otherwise.
+
+For the solution of ill-posed problems one often uses regularisation. A particular example uses $l_1$ based minimisation as this may improve sparsity. A possible algorithm would be to interleave orthogonal elimination steps (using Householder matrices) with with steps which set the values of the coefficient matrix $C$ which are very small to zero. Orthogonal elimination maintains the norm of $\lVert P(x) \rVert_2$ while setting small sized elements $C_j$ to zero would reduce the norm $$\lVert C \rVert_\infty = \sup_z \frac{\lVert Cz \rVert_\infty}{\lVert z \rVert_\infty}.$$
+
+Finally, one may consider backward error analysis, where the effects of the errors occurring during the floating point computations are modelled as data errors which occur before the computations. One can then use the Lipschitz constant or condition number to get bounds on the errors in the result.
+
+A totally different approach would consider Bayesian methods. Here one starts with a prior for the coefficients of $C$, i.e., a probablity density $p(C)$. Then one considers the likelihood of any polynomial system $C\x$ given a system with errors $P(x,\omega)$. This likelihood is a conditional probility of $p(C(\omega) \mid C)$. For example, errors could be normally distributed with density $\gamma \exp(-\lVert C(\omega) - C\lVert_2^2/(2\sigma^2))$ where $\gamma$ is a normalisation constant. The posterior density of $C$ is then
+proportional to $$p(C)\, \exp(-\lVert C(\omega) - C\lVert_2^2/(2\sigma^2)).$$
+The so-called MAP (maximum aposteriori method) would then estimate $C$ as the maximum of the aposteriori density and a thorough Bayesian analysis would do a comprehensive study of the posterior.
