@@ -312,7 +312,7 @@ $$|\delta| \leq \frac{1}{2^{D-1}-1}.$$
 
 **proof:**
 
-As $\phi(x)\in\F(D)$ there exists an integer $n\in[2^{D-1},2^D)$ and an integer $E$ such that $$\phi(x) = \pm n\, 2^{-D}\cdot 2^E.$$ One can see that $$|x|\in(n-1,n+1)\,2^{E-D}$$ and has the same sign as $\phi(x)$.
+As $\phi(x)\in\F(D)$ there exists an integer $n\in[2^{D-1},2^D)$ and an integer $E$ such that $$\phi(x) = \pm n\, 2^{-D}\cdot 2^E.$$ One can see that $$ x \in(n-1,n+1)\,2^{E-D}$$ and has the same sign as $\phi(x)$.
 Consequently, $$|x| \geq (2^{D-1}-1)\,2^{E-D} = \left(\frac{1}{2} - \frac{1}{2^D}\right)\, 2^E.$$ Furthermore, one derives $$|\phi(x) - x| \leq 2^{E-D}$$  and thus $$|\phi(x)-x| \leq \frac{2^{E-D}}{(1/2-1/2^D)2^E}=\frac{1}{2^{D-1}-1}.$$ $\qed$
 
 --------------------------------------------
