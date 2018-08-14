@@ -20,6 +20,7 @@
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\R}{\mathbb R}
 \DeclareMathOperator{\LT}{LT}
+\DeclareMathOperator{\wt}{wt}
 
 \declaretheorem{theorem}
 \declaretheorem[sibling=theorem, style=theorem]{proposition}
@@ -209,13 +210,26 @@ For a multi-index $i = (i_1, \dots, i_s)$, the notation $x^i$ means the monomial
 
 For $s = 1$, there is only one possible term ordering, namely \[1 \prec x \prec x^2 \prec \cdots.\]
 For $s > 1$, however, there are many possibilities.
-\begin{example}[Lexicographical ordering]
+\begin{example}[Lexicographical ordering $\prec_{\rm lex}$]
+  Fix an ordering on the variables, say $x_s \prec x_{s-1} \prec \cdots \prec x_1$.
+  Extend this ordering to monomials using the lexicographical rule.
+  Explicitly, set $x^i \prec_{\rm lex} x^j$ if the first non-zero entry of $j-i$ is positive.
 \end{example}
 
-\begin{example}[Graded lexicographical ordering]
+\begin{example}[Graded lexicographical ordering $\prec_{\rm grlex}$]
+  Fix an ordering on the variables, say $x_s \prec x_{s-1} \prec \cdots \prec x_1$.
+  Extend this ordering to monomials by first comparing the total degree and then using the lexicographical rule.
+  Explicitly, set $x^i \prec_{\rm grlex} x^j$ if $\deg(x^i) < \deg(x^j)$ or if $\deg(x^i) = \deg(x^j)$ and $x^i \prec_{\rm lex} x^j$.
 \end{example}
 
 \begin{example}[Weight ordering]
+  Assign a weight $\alpha_i \in \R_{> 0}$ to each variable $x_i$.
+  Extend the weight to monomials by taking a weighted sum
+  \[ \wt(x^i) = \sum_{\ell = 1}^s i_\ell \alpha_\ell.\]
+  Use the weights to define a term ordering by setting $x^i \prec_\alpha x^j$ if $\wt(x^i) < \wt(x^j)$.
+
+  We have to take care that there are no ties in the weights of the monomials (or agree to break ties if they occur).
+  For generic (almost all) choices of weights, there will be no ties.
 \end{example}
 
 Fix a term ordering $\prec$.
@@ -246,7 +260,19 @@ However, the converse is not true, as the next examples show.
 This severely diminishes the utility of the division algorithm.
 
 \begin{example}[Failure of the division algorithm]
-  
+  Let us work with $\prec_{\rm grlex}$.
+  Take $f_1  = x^3-2xy$ and $f_2 = x^2y-2y^2+x$; and $g = x^2$.
+  Then the division algorithm stops without any computation, and returns $x^2$ as the remainder.
+  However, the following computation shows that $g$ is actually in the ideal $\langle  f_1, f_2 \rangle$:
+  \[ g = x \cdot f_2 - f_1.\]
 \end{example}
+
+\begin{example}
+  We can work in any term ordering.
+  Take $f_1 = xy-1$, $f_2 = x^3-y^3$, and $f_3 = x^2+y^2$.
+  Check that $1 \in \langle  f_1, f_2, f_3 \rangle$ (either directly or using that $V(\langle  f_1, f_2, f_3 \rangle) = \emptyset$).
+  However, the division algorithm stops without any computation, and returns $1$ as the remainder.
+\end{example}
+
 
 \end{document}
