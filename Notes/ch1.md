@@ -17,7 +17,7 @@ header-includes:
   $$\newcommand{\null}{\operatorname{null}}$$
   $$\newcommand{\x}{\underline{\mathbf{x}}}$$
   $$\newcommand{\qed}{\blacksquare}$$
-...o
+...
 # Chapter 1: Numerical introduction
 
 # introductory section -- numerical aspects
