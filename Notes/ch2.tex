@@ -16,6 +16,7 @@
 \author{Anand Deopurkar and Markus Hegland}
 \date{ANU winter semester 2018}
 
+\renewcommand{\algorithmautorefname}{Algorithm}
 \newcommand{\C}{\mathbb C}
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\R}{\mathbb R}
@@ -27,42 +28,48 @@
 \declaretheorem[sibling=theorem, style=definition]{definition}
 \declaretheorem[sibling=theorem, style=definition]{example}
 \declaretheorem[sibling=theorem, style=definition]{problem}
+\declaretheorem[sibling=theorem, style=remark]{remark}
 
 \begin{document}
 
 \maketitle
 
-\section{Algebraic introduction}
+\part*{Algebraic introduction}
+This is a quick introduction to the commutative algebra relevant to systems of polynomial equations.
+Our main references are Stetter \cite{stetter04} and Cox, Little, O'Shea \cite{cox15}.
 
-\subsection{Ideals}
+\tableofcontents
 
-Let $k$ be a field. Denote by $k[x_1,\dots,x_s]$ the set of polynomials in variables $x_1, \dots, x_s$ with coefficients in $k$. 
+\section{Polynomials and ideals}
+
+Let $k$ be a field.
+Denote by $k[x_1,\dots,x_s]$ the set of polynomials in variables $x_1, \dots, x_s$ with coefficients in $k$. 
 Stetter denotes $k[x_1,\dots,x_s]$ by $P^s_k$.
-For numerical analysis, we will take $k = \C$, but a lot of the algebraic geometry works best with $k = \C$.
+For numerical analysis, we will take the base-field $k = \R$, but a lot of the algebraic geometry works best with $k = \C$.
 The case of $k = \Z/p\Z$ is used frequently for exact symbolic computation.
-Most of the basic algebra is field agnostic.
+We will try to be base-field agnostic; but for some results, the base-field will play an important role. 
 
 Let $f_1, \dots, f_k$ be elements of $k[x_1,\dots, x_s]$.
 We are interested in solving the system of polynomial equations
 \begin{align}\label{eqn:system}
   \begin{split}
-  f_1 &= 0,\\
+  f_1(x_1, \dots, x_s) &= 0,\\
   &\vdots\\
-  f_n &= 0.
+  f_n(x_1, \dots, x_s) &= 0.
 \end{split}
 \end{align}
 Our experience with systems of linear equation suggests that we should look at not only the $n$ equations listed above, but also their linear combinations.
 This idea suggests the following.
 \begin{definition}[Ideal]
-  A subset $I$ of $k[x_1, \dots, x_s]$ is called an \emph{ideal} if the following two conditions are satisfies.
+  A subset $I$ of $k[x_1, \dots, x_s]$ is called an \emph{ideal} if the following two conditions are satisfied.
   \begin{enumerate}
-  \item if $f, g \in I$, then $f+g \in I$
-  \item if $f \in I$ and $c \in k[x_1, \dots, x_s]$, then $cf \in I$.
+  \item If $f, g \in I$, then $f+g \in I$.
+  \item If $f \in I$ and $c \in k[x_1, \dots, x_s]$, then $cf \in I$.
   \end{enumerate}
 \end{definition}
 The definition of an ideal should be reminiscent of the definition of a subspace of a vector space.
-The only difference is that in multipliers in the second condition are not necessarily scalars (elements of $k$) but polynomials.
-More succinctly, an ideal is a subset of $k[x_1, \dots, x_s]$ that is closed under polynomial linear combinations.
+The only difference is that the multipliers in the second condition are not necessarily scalars (elements of $k$) but polynomials.
+By putting the two conditions together, we see that an ideal is a subset of $k[x_1, \dots, x_s]$ that is closed under polynomial linear combinations.
 That is, if $f_1, \dots, f_n \in I$ and $c_1, \dots, c_n \in k[x_1, \dots, x_s]$, then $c_1f_1 + \dots + c_nf_n \in I$.
 
 \begin{example}[The unit ideal]
@@ -88,16 +95,18 @@ There are multiple generating sets for a given ideal, just as there are multiple
 Depending on what we want to do, some generating sets are more useful than others.
 A common theme in the course will be to learn how to construct and use good generating sets.
 
-\subsection{Zero loci}
+\subsection{Zero loci of ideals}
 Let $I \subset k[x_1, \dots, x_s]$ be an ideal.
-We can associate to $I$ a subset $V(I)$ of $k^s$ called the \emph{zero locus} or the \emph{vanishing locus} of $I$ defined as follows:
+We can associate to $I$ a subset $V(I)$ of $k^s$ called the \emph{zero locus} or the \emph{vanishing locus} of $I$.
+It is defined as follows:
 \[
-  V(I) = \{x \in k^s \mid f(x) = 0 \text{ for all $f \in I$}.\}
+  V(I) = \{x \in k^s \mid f(x) = 0 \text{ for all $f \in I$}\}.
 \]
 Observe that if $I = \langle  f_1, \dots, f_n \rangle$, then $V(I)$ is simply the set of solutions of the system of equations \eqref{eqn:system}.
 Thus, solving \eqref{eqn:system} is equivalent to finding $V(I)$.
-A subset of $k^s$ of the form $V(I)$ for some ideal $I$ is called an \emph{algebraic subset}.
-Some authors also call it an \emph{algebraic variety}, but some other authors reserve the term \emph{variety} only for special types of algebraic sets (namely, the ``irreducible'' ones).
+
+A subset of $k^s$ of the form $V(I)$ for some ideal $I$ is called an \emph{algebraic set}.
+Some authors also call an algebraic set an \emph{algebraic variety}, but some other authors reserve the term \emph{variety} only for special types of algebraic sets (namely, the ``irreducible'' ones).
 
 We can turn the construction $I \leadsto V(I)$ around.
 Starting with a subset $Z \subset k^s$, we can construct an ideal $I(Z) \subset k[x_1, \dots, x_s]$ as follows:
@@ -108,7 +117,43 @@ That is, it satisfies the property that if $f^n \in I(Z)$ for some $n \geq 1$, t
 (This property is not shared by all ideals.
 For example, the ideal $\langle  x^2 \rangle \subset k[x]$ is not radical---it contains $x^2$, but not $x$.)
 
-The following important theorem links the two constructions above.
+\begin{example}[Ideal of $3$ points in $k^2$]
+  \label{ex:3pts}
+  Let $Z = \{(0,0), (0,1), (1,0)\}$.
+  Then we have
+  \[ I(Z) = \langle x(x-1), xy, y(y-1)) \rangle.\]
+\end{example}
+\begin{example}[Ideal of the ``twisted cubic'']
+    \label{ex:twistedcubic}
+Let $Z = \{(t, t^2, t^3) \mid t \in \C\} \subset \C^3$.
+  Then
+  \[ I(Z) = \langle  x^2-y, y^2-xz, x^3-z \rangle.\]
+\end{example}
+\begin{example}[Ideal of $4$ points in $k^2$]
+  \label{ex:4pts}
+  Let $Z = \{(0,0), (1,0), (0,1), (1,1)\}$.
+  Then
+  \[ I(Z) = \langle  x(x-1), y(y-1) \rangle.\]
+\end{example}
+\begin{remark}
+  The ideal in \autoref{ex:4pts} is different in a crucial way from the ideals in \autoref{ex:3pts} and \autoref{ex:twistedcubic}.
+  It is a \emph{complete intersection} ideal.
+  A complete intersection ideal is an ideal that is generated by as many polynomials as the codimension of its vanishing set.
+  In \autoref{ex:4pts}, the codimension of the vanishing set is 2, and indeed, the ideal is generated by 2 polynomials.
+  One can prove that if the base-field is algebraically closed, then an ideal needs at least as many generators as the codimension of its vanishing locus.
+  A complete intersection ideal is one where the bound is achieved.
+
+  A complete intersection ideal is stable under perturbation of its generators.
+  We will not make this precise, but illustrate it in the examples above.
+  If we perturb one (or both) of the generators of the ideal in \autoref{ex:4pts}, then the perturbed ideal remains the ideal of $4$ points.
+  In contrast, if we perturb the generators of the ideals in \autoref{ex:3pts} or \autoref{ex:twistedcubic}, then the ideal changes dramatically in shape.
+  In \autoref{ex:3pts}, a perturbation of the generators will make the ideal become the unit ideal.
+  In \autoref{ex:twistedcubic}, a perturbation of the generators will make the ideal become the ideal of a finite set of points.
+  You are encouraged to verify these statements about perturbations either by hand or using a computer algebra system.
+\end{remark}
+
+\subsection{The Nullstellensatz}
+The following important theorem links the constuctions $I \mapsto V(I)$ and $Z \mapsto I(Z)$.
 \begin{theorem}[Nullstellensatz]
   Suppose $k$ is an algebraically closed field (for example, $k = \C$).
   Then we have a one-to-one correspondence
@@ -117,12 +162,12 @@ The following important theorem links the two constructions above.
     \leftrightarrow
     \{\text{Algebraic subsets of $k^s$}\},
   \]
-  where the $\rightarrow$  direction is given by $I \mapsto V(I)$ and the $\leftarrow$ direction is given by $I(Z) \mapsfrom I(Z)$.
+  where the $\rightarrow$  direction is given by $I \mapsto V(I)$ and the $\leftarrow$ direction is given by $I(Z) \mapsfrom Z$.
 \end{theorem}
 
 \begin{example}[Failure of the Nullstellensatz for non-closed fields]
   In the Nullstellensatz, it is essential for the base-field to be algebraically closed.
-  Take $k = \R$ and $I = \langle  x^2 + 1 \rangle \subset k[x]$.
+  To see what can go wrong otherwise, take $k = \R$ and $I = \langle  x^2 + 1 \rangle \subset k[x]$.
   Then $I$ is a radical ideal, and we have $V(I) = \emptyset$.
   But we also have $V(\langle  1 \rangle) = \emptyset$.
   So the correspondence is not one-to-one.
@@ -147,18 +192,24 @@ A consequence of the Nullstellensatz is the following dichotomy for systems of p
 
   If $I$ is not radical, then we replace it by its radical $\sqrt I$, defined by
   \[ \sqrt I = \{f \mid f^n \in I \text{ for some $n \geq 1$}\}.\]
-  It is straightforward to check (do it!) that $\sqrt I$ is an ideal, is radical, and $V(I) = V(\sqrt I)$.
+  It is not too hard to check (do it!) that $\sqrt I$ is an ideal, is radical, and $V(I) = V(\sqrt I)$.
   From the argument above, we get that $\sqrt I = \langle  1 \rangle$, that is $1 \in \sqrt I$.
-  But by definition of $\sqrt I$, this means that $1^n \in I$ for some $n \geq 1$, so $I = \langle  1 \rangle$.
+  But by the definition of $\sqrt I$, this means that $1^n \in I$ for some $n \geq 1$, so $I = \langle  1 \rangle$.
 \end{proof}
 
-\subsection{Ideal membership and the division algorithm}
+\begin{remark}
+  Over the real numbers, although the Nullstellensatz fails, an analogous theorem called the Positivestellensatz holds.
+  Although it is tempting, we will not discuss this further.
+  This topic belongs to an interesting field of mathematics that lies on the interface of algebraic geometry, combinatorics, applied mathematics, and logic, called \emph{real algebraic geometry}.
+\end{remark}
+
+\section{Ideal membership and the division algorithm}
 Let us return to the system of polynomial equations
 \begin{align}\label{eqn:system1}
   \begin{split}
-  f_1 &= 0,\\
+  f_1(x_1, \dots, x_s) &= 0,\\
   &\vdots\\
-  f_n &= 0.
+  f_n(x_1, \dots, x_s) &= 0.
 \end{split}
 \end{align}
 As a first step towards solving this system, we would like to determine whether the system has any solutions at all.
@@ -168,11 +219,11 @@ In this section, we will consider a general version of this problem.
   Given polynomials $f_1, \dots, f_n$ and a polynomial $g$, determine whether $g$ lies in the ideal $\langle  f_1, \dots, f_n \rangle$.
 \end{problem}
 
-\subsubsection{The one-variable case}
+\subsection{The one-variable case}
 Suppose $s = 1$ and $n = 1$.
 So, we are given a (non-zero) polynomial $f(x)$ and another polynomial $g(x)$.
 We want to determine whether $g(x)$ is lies in the ideal $\langle  f(x) \rangle$, that is, whether $g(x)$ is a multiple of $f(x)$.
-We simply run the division algorithm!
+Here we know what to do: simply run the division algorithm (\autoref{alg:divalg1}).
 
 \begin{algorithm}
   \While{
@@ -185,17 +236,18 @@ We simply run the division algorithm!
   \bigskip
 
   \caption{The division algorithm for $g(x) \pmod {f(x)}$}
+  \label{alg:divalg1}
 \end{algorithm}
 
-We have the following key fact.
+In the one-variable case, we have the following key fact.
 \begin{proposition}
   The polynomial $g(x)$ lies in $\langle  f(x) \rangle$ if and only if the remainder obtained in the division algorithm for $g(x) \pmod {f(x)}$ is zero.
 \end{proposition}
 
-\subsection{The multi-variable case: term orderings}
-To extend the division algorithm to more than one variables and ideals generated by more than one polynomial, we must first extend the notion of a leading term.
-It turns out that there are multiple ways in which we can reasonably order the monomials in multiple variables.
-This gives rise to the idea of a term ordering.
+\subsection{Term orderings}
+To extend the division algorithm to handle more than one variable and ideals generated by more than one polynomial, we must first extend the notion of the leading term.
+It turns out that there are multiple ways to do this.
+It gives rise to the idea of a term ordering.
 
 Let $T^s$ be the set of monomials in the variables $\{x_1, \dots, x_s\}$.
 We use multi-indices to denote the elements in $T^s$.
@@ -213,22 +265,22 @@ For $s > 1$, however, there are many possibilities.
 \begin{example}[Lexicographical ordering $\prec_{\rm lex}$]
   Fix an ordering on the variables, say $x_s \prec x_{s-1} \prec \cdots \prec x_1$.
   Extend this ordering to monomials using the lexicographical rule.
-  Explicitly, set $x^i \prec_{\rm lex} x^j$ if the first non-zero entry of $j-i$ is positive.
+  That is, set $x^i \prec_{\rm lex} x^j$ if the first non-zero entry of $j-i$ is positive.
 \end{example}
 
 \begin{example}[Graded lexicographical ordering $\prec_{\rm grlex}$]
   Fix an ordering on the variables, say $x_s \prec x_{s-1} \prec \cdots \prec x_1$.
   Extend this ordering to monomials by first comparing the total degree and then using the lexicographical rule.
-  Explicitly, set $x^i \prec_{\rm grlex} x^j$ if $\deg(x^i) < \deg(x^j)$ or if $\deg(x^i) = \deg(x^j)$ and $x^i \prec_{\rm lex} x^j$.
+  That is, set $x^i \prec_{\rm grlex} x^j$ if $\deg(x^i) < \deg(x^j)$ or if $\deg(x^i) = \deg(x^j)$ and $x^i \prec_{\rm lex} x^j$.
 \end{example}
 
 \begin{example}[Weight ordering]
   Assign a weight $\alpha_i \in \R_{> 0}$ to each variable $x_i$.
-  Extend the weight to monomials by taking a weighted sum
+  Extend the weight assignment to monomials by taking a weighted sum
   \[ \wt(x^i) = \sum_{\ell = 1}^s i_\ell \alpha_\ell.\]
-  Use the weights to define a term ordering by setting $x^i \prec_\alpha x^j$ if $\wt(x^i) < \wt(x^j)$.
+  Use this to define a term ordering by setting $x^i \prec_\alpha x^j$ if $\wt(x^i) < \wt(x^j)$.
 
-  We have to take care that there are no ties in the weights of the monomials (or agree to break ties if they occur).
+  We have to take care that there are no ties in the weights of the monomials (or devise a tie-breaker).
   For generic (almost all) choices of weights, there will be no ties.
 \end{example}
 
@@ -259,6 +311,13 @@ It is easy to see that if the division algorithm for $g \pmod {f_1, \dots, f_n}$
 However, the converse is not true, as the next examples show.
 This severely diminishes the utility of the division algorithm.
 
+The division algorithm suffers from another drawback.
+Note that there may be choices involved in the running of the algorithm.
+Namely, if there are multiple $i$'s such that $\LT(f_i)$ divides $\LT(g)$, then we may choose any one and proceed.
+The final remainder obtained may change depending on the choices made in the algorithm.
+
+Nevertheless, we will see in the next section, that we can overcome both o these drawbacks by making a judicious choice of the generating set for our ideal.
+
 \begin{example}[Failure of the division algorithm]
   Let us work with $\prec_{\rm grlex}$.
   Take $f_1  = x^3-2xy$ and $f_2 = x^2y-2y^2+x$; and $g = x^2$.
@@ -267,12 +326,16 @@ This severely diminishes the utility of the division algorithm.
   \[ g = x \cdot f_2 - f_1.\]
 \end{example}
 
-\begin{example}
+\begin{example}[Failure of the division algorithm]
   We can work in any term ordering.
   Take $f_1 = xy-1$, $f_2 = x^3-y^3$, and $f_3 = x^2+y^2$.
   Check that $1 \in \langle  f_1, f_2, f_3 \rangle$ (either directly or using that $V(\langle  f_1, f_2, f_3 \rangle) = \emptyset$).
   However, the division algorithm stops without any computation, and returns $1$ as the remainder.
 \end{example}
 
+\subsection{Gr\"obner bases}
+
+\bibliography{ch2}
+\bibliographystyle{amsalpha}
 
 \end{document}
