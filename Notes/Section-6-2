@@ -1,0 +1,313 @@
+\documentclass[a4]{article}
+  \usepackage{hyperref}
+  \usepackage[top=0.5in, bottom=0.5in, left=.75in, right=1in]{geometry}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy} \lhead{\@title} \rhead{\@author}
+  \usepackage{xcolor}
+  \usepackage{amsmath,amsfonts,amssymb,amsxtra,amsthm,amscd,mathrsfs}
+  \usepackage{enumerate}
+  \usepackage{hyperref}
+  \usepackage[english]{babel}
+  \usepackage[style=numeric]{biblatex}
+
+  \usepackage{amsthm}
+  \usepackage{polynom}
+  \def\spvec#1{\left(\vcenter{\halign{\hfil$##$\hfil\cr \spvecA#1;;}}\right)}
+  \def\spvecA#1;{\if;#1;\else #1\cr \expandafter \spvecA \fi}
+  \usepackage{xypic}
+
+  \newcounter{results}[section]
+
+  \renewcommand{\theresults}{\thesection.\arabic{results}}
+
+  \theoremstyle{definition}
+  \newtheorem{thm}[results]	{Theorem}
+  \newtheorem{defn}[results]{Definition}
+  \newtheorem{cor}[results]{Corollary}
+  \newtheorem{lem}[results]{Lemma}
+  \newtheorem{prop}[results]{Proposition}
+  \newtheorem{ex}[results]{Example}
+
+  \theoremstyle{remark}
+  \newtheorem{rmk}{Remark}[section]
+
+
+  \newenvironment{solution}
+    {\begin{proof}[Solution]}
+    {\end{proof}}
+  \renewcommand{\thesubsection}{\thesection(\alph{subsection})}
+  \def\quotient#1#2{\raise1ex\hbox{$#1$}\Big/\lower1ex\hbox{$#2$}}
+  \setlength{\parskip}{1ex}
+  \setlength\parindent{0pt}
+  \newcommand{\ztwo}{\mathbb{Z}[\sqrt{2}]}
+  \newcommand{\R}{aba^{-1}b^{-1}}
+  \newcommand{\Hom}{\text{Hom}}
+
+  \usepackage{tikz}
+  \usetikzlibrary{positioning}
+  \usetikzlibrary{petri}
+  \tikzset{state/.style={circle,draw=white,inner sep=0pt,minimum size=10mm,label=center:$#1$,name=#1},
+  redarrow/.style={->, red, fill=none,>=stealth},bluearrow/.style={->, blue, fill=none,>=stealth},
+  redline/.style={-,red,fill=none},blueline/.style={-,blue,fill=none}}
+
+  \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+  \newcommand{\im}{\text{im}}
+
+  \usepackage{amsmath}
+  \usepackage{amssymb}
+  \usepackage{xcolor}
+  \definecolor{dark-red}{rgb}{0.7,0.25,0.25}
+  \definecolor{dark-blue}{rgb}{0.15,0.15,0.55}
+  \definecolor{medium-blue}{rgb}{0,0,0.65}
+
+  \usepackage{tikz}
+  \usetikzlibrary{cd}
+  \usetikzlibrary{knots}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{matrix}
+  \usetikzlibrary{arrows,backgrounds,patterns,scopes,external,hobby,
+      decorations.pathreplacing,
+      decorations.pathmorphing
+  }
+  \usepackage{graphicx}
+  \usepackage{fullpage}
+  \usepackage[T1]{fontenc}
+  \usepackage[final]{microtype}
+  \usepackage{libertine}
+  \usepackage[libertine]{newtxmath}
+  \usepackage{ifthen}
+
+  \usepackage{pdfpages}
+
+  \newcommand{\ob}[1]{\textit{ ob }(#1)}
+  \newcommand{\id}{\text{id}}
+  \newcommand{\arr}{\text{ ar }}
+  \newcommand{\Nat}{{\bf Nat}}
+
+  \newcommand{\mathfig}[2]{{\hspace{-3pt}\begin{array}{c}%
+    \raisebox{-2.5pt}{\includegraphics[width=#1\textwidth]{#2}}%
+  \end{array}\hspace{-3pt}}}
+
+  \newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{\small  arXiv:#1}}
+
+  \newcommand{\nn}[1]{{\color{red} [[#1]]}}
+
+  % tricky way to iterate macros over a list
+  \def\semicolon{;}
+  \def\applytolist#1{
+      \expandafter\def\csname multi#1\endcsname##1{
+          \def\multiack{##1}\ifx\multiack\semicolon
+              \def\next{\relax}
+          \else
+              \csname #1\endcsname{##1}
+              \def\next{\csname multi#1\endcsname}
+          \fi
+          \next}
+      \csname multi#1\endcsname}
+
+  % \def\cA{{\mathcal A}} for A..Z
+  \def\calc#1{\expandafter\def\csname c#1\endcsname{{\mathcal #1}}}
+  \applytolist{calc}QWERTYUIOPLKJHGFDSAZXCVBNM;
+  % \def\bbA{{\mathbb A}} for A..Z
+  \def\bbc#1{\expandafter\def\csname bb#1\endcsname{{\mathbb #1}}}
+  \applytolist{bbc}QWERTYUIOPLKJHGFDSAZXCVBNM;
+  % \def\bfA{{\mathbf A}} for A..Z
+  \def\bfc#1{\expandafter\def\csname bf#1\endcsname{{\mathbf #1}}}
+  \applytolist{bfc}QWERTYUIOPLKJHGFDSAZXCVBNM;
+
+  \newcommand{\ps}[1]{#1^{\sf ps}}
+
+  \newcommand{\Kar}{\operatorname{Kar}}
+  \newcommand{\Obj}{\operatorname{Obj}}
+  \newcommand{\Fun}{\operatorname{Fun}}
+  \newcommand{\op}{\operatorname{op}}
+  \newcommand{\Set}{{\bf Set}}
+  \renewcommand{\Vec}{{\bf Vec}}
+  \newcommand{\fdVec}{{\bf fdVec}}
+  \newcommand{\Rep}{{\bf Rep}}
+  \newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+  \makeatletter
+  \newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+  \newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+  \makeatother
+
+  \makeatletter
+  \newcommand{\circlearrow}{}% just in case
+  \DeclareRobustCommand{\circlearrow}{%
+    \mathrel{\vphantom{\rightarrow}\mathpalette\circle@arrow\relax}%
+  }
+  \newcommand{\circle@arrow}[2]{%
+    \m@th
+    \ooalign{%
+      \hidewidth$#1\circ\mkern1mu$\hidewidth\cr
+      $#1\longrightarrow$\cr}%
+  }
+  \makeatother
+
+\title{Section 6.2 Divisors of Empirical polynomials}
+\author{Yossi Bokor}
+\date{21/08/2018}
+
+\begin{document}
+
+\section{ Empirical Polynomials}
+
+  Before defining empirical polynomials, we must introduce what Stetter means by empirical data and vectors, as these lead us to the definition of empirical polynomials.
+
+  \begin{defn}
+    Empirical data $( \bar{\alpha}, \varepsilon)$ consists of specified value $\bar{\alpha} \in \mathbb{R}/\mathbb{C}$ and a tolerance $\varepsilon \in \mathbb{R}_+$, which indicate the range of potential values for the quantity as follows: $\varepsilon$ provides the order of magnitude of the indetermination of $\bar{\alpha}$. Intuitively, this means that any $\tilde{\alpha}$ such that $| \tilde{\alpha} - \bar{\alpha}| \le \varepsilon$ is a valid instance of $(\bar{\alpha}, \varepsilon)$.
+
+  \end{defn}
+
+  Given an empirical data quantity, we have an associated family of neighbourhoods $$N_{\delta}(\bar{\alpha}, \varepsilon)= \{ \tilde{\alpha} \mid | \tilde{alpha} - \bar{\alpha}| \le \delta \varepsilon \}, \, \delta \in \mathbb{R}_{0,+}$$ and if $\bar{\alpha}$ is in $\mathbb{R}$, we must specify if $\tilde{\alpha}$ is only in $\mathbb{R}$, or whether we allow $\tilde{\alpha} \in \mathbb{C}$.
+
+  To generalise this to vectors in $\mathbb{K}^m$, we first introduce a specific norm. Given $\varepsilon = (\varepsilon_1, \ldots , \varepsilon_m)$, $\varepsilon_j > 0 $ for all $j$, we define the following norm on $\mathbb{K}^m$
+   \[ \norm{\tilde{\alpha} - \bar{\alpha}}^{\ast}_{\varepsilon} = \norm{( \ldots, \frac{|\tilde{\alpha_j}-\bar{\alpha_j}|}{\varepsilon_j}, \ldots) }^{\ast} \], with $\norm{ \cdot}^{\ast}$ the dual norm on $(\mathbb{K}^m)^{\ast}$.
+
+  From this we obtain empirical polynomials. An empircal polynomial $(\bar{p} , \varepsilon)$ consists of a polynomial $\bar{p} \in \mathcal{P}^s$, $s \ge 1$, and a tolerance vector $\varepsilon \in \mathbb{K}^M$, defined as follows. Let
+  \[ \emptyset \neq \tilde{J} := \{ j \in J \mid \bar{\alpha}_j \text{ is an empirical coefficient of } (\bar{p}, \varepsilon) \} \subset J \]
+  be the empirical support of $(\bar{p}, \varepsilon)$, with $| \tilde{J}| =M$. Then the components $\varepsilon_j$ refer only subscripts in the empirical support $\tilde{J}$: \[\varepsilon =( \varepsilon_j >0 \mid j \in \tilde{J}) \in \mathbb{R}^m_+.\]
+
+  \begin{rmk}
+    Given a $\delta = O(1)$, the $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ are valid instances of the empirical polynomial.
+  \end{rmk}
+
+  Now, given an empirical polynomial $(\bar{p}, \varepsilon)$, we can ask what its set of zeroes is. Continuing with the notion of neighbourhoods of polynomials which are valid instances of a given empirical polynomial, we define the $\delta$-pseudozero set of $(\bar{p}, \varepsilon)$ as
+  \[ Z_{\delta}(\bar{p}, \varepsilon):= \{ \zeta \in \mathbb{K} \mid | \bar{p}(\zeta)| \le \norm{(\zeta)^{\vee})}_{\varepsilon} \delta\} \]
+
+\section{Divisors and Zeroes of Empirical Polynomials}
+
+  Recall a polynomial $s$ divides the polynomial $p$ without remainder, $s|p$, iff all the zeroes of $s$ are zeroes of $p$, iff $p \in \langle s \rangle$.
+
+  \begin{rmk}
+    For univariate polynomials, we can assume that $s$ is monic, and hence for $p=sq$ the leading coefficients of $p$ and $q$ are the equal, and $\frac{p}{lcm{p}}$ and $1$ are the trivial divisors of $p$.
+  \end{rmk}
+
+  \begin{defn}
+    A monic polynomial $\tilde{s}$ is a pseudodivisor of $(\bar{p}, \varepsilon)$ if for $\delta = O(1)$, there is a polynomial $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ such that \[ \tilde{p}=\bar{p} + \Delta p = q \tilde{s} \] for $\Delta p $ a small perturbation term.
+  \end{defn}
+
+  As for non-empirical polynomials, we have a proposition relating zeroes of polynomials and their divisors.
+
+  \begin{prop}
+    $\tilde{s}$ is a pseudozero of $(\bar{p}, \varepsilon)$ iff the zeroes of $\tilde{s}$ are simultaneous pseudozeroes of $(\bar{p}, \varepsilon)$.
+  \end{prop}
+
+  \begin{proof}
+    If $\tilde{s}|(\bar{p}, \varepsilon)$, then all the zeros of $\tilde{s}$ are zeroes a $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ with $\delta=O(1)$.
+
+    If the zeroes of $\tilde{s}$ are simultaneous pseudozeroes of $(\bar{p}, \varepsilon)$ then there is $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ with $q\tilde{s}=\tilde{p} = \bar{p} + \Delta p$.
+  \end{proof}
+
+  \begin{rmk}
+    This proposition allows us to switch between talking about pseudozeros and pseudodivisors at our will.
+  \end{rmk}
+
+  \begin{rmk}
+    From a numerical perspective, we can form the backward error to verify that a monic polynomial $\tilde{s}$ of degree $m$ is a pseudodivisor of a univariate empircal polynomial $(\bar{p}, \varepsilon)$.
+  \end{rmk}
+
+\section{Sylvester Matrices}
+
+  Consider an exact factorisation of $p \in \mathcal{P}_n^1$ \[ \sum_{j=0}^n \alpha_j x^j = p(x) = q(x)s(x) = \left(\sum_{i=0}^{n-m} \beta_i x^i \right) \left(\sum_{l=0}^m \gamma_l x^l \right) \] where $s(x)$ need not be monic. The linearised effects of a perturbation term $\Delta p$ can be found using $p + \Delta p =(q + \Delta q)(s+ \Delta s)$ with $\Delta s q + \Delta qs = \Delta p (- \Delta q \Delta s)$.
+
+  We can write the linearisation using matrices as
+  \[
+    \begin{bmatrix}
+      (\Delta \gamma_l)_l & (\Delta \beta_j)_j
+    \end{bmatrix}
+    \begin{bmatrix}
+      \beta_0 & beta_1   & \ldots & \ldots & \ldots & \beta_n       & 0          & 0          & 0          & 0    \\
+        0    & beta_0   & beta_1   & \ldots & \ldots & \ldots     & \beta_n       & 0          & 0          & 0    \\
+        & \ldots & \ldots & \ldots & \ldots & \ldots     & \ldots     & \ldots    & 0    &   0   \\
+        0    & 0      & 0      & \beta_0   & \beta_1   & \ldots     & \ldots     & \beta_{n-1} & \beta_n       & 0    \\
+        0    & 0      & 0      & 0      & \beta_0   & \beta_1       & \ldots     & \ldots     & \beta_{n-1} & \beta_n \\
+        \gamma_0 & \gamma_1   & \ldots & \ldots & \ldots & \gamma_{m-1} & \gamma_m       & 0          & 0          & 0    \\
+        0    & \gamma_0   & \gamma_1   & \ldots & \ldots & \ldots     & \gamma_{m-1} & \gamma_m      & 0          & 0    \\
+        0    & 0      & \ldots & \ldots & \ldots & \ldots     & \ldots     & \ldots     &      0     &    0  \\
+        0    & 0      & \gamma_0   & \gamma_1   & \ldots & \ldots     & \ldots     & \gamma_{m-1} & \gamma_m       & 0    \\
+        0    & 0      & 0      & \gamma_0   & \gamma_1   & \ldots     & \ldots     & \ldots     & \gamma_{m-1} & \gamma_m
+      \end{bmatrix}
+      \begin{bmatrix}
+        1 \\
+        x \\
+        x^2 \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        x^{n-1}
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        (\Delta \alpha_i )_i
+      \end{bmatrix}
+      \begin{bmatrix}
+        1 \\
+        x \\
+        x^2 \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        \vdots \\
+        x^{n-1}
+      \end{bmatrix}
+  \]
+
+  or $(\Delta \gamma, \Delta \beta) S(q,s) \bf{x} = (\Delta \alpha) \bf{x}$. We call the $n \times n$ matrix $S(q,s)$ the ${\it Sylvester matrix}$ of $q$ and $s$.
+
+  \subsection{Properties of the Sylvester Matrix}
+    The determinant of the Sylvester matrix $S(q,s)$ is called the Resultant $R(q,s)$ of the polynomials $q$ and $s$, and is a useful object for studying common divisors and zeroes of two polynomials:
+
+    \begin{thm}
+      IF $A$ is a unique factorisation domain, take $f,g \in A[x]$. Then $f$ and $g$ have a non-constant common divisor iff $R(f,g)$ vanishes.
+    \end{thm}
+
+    \begin{proof}
+      The full details can be found in Section 4.2 (Divisibility properties of polynomials) in `{\it Plane Algebraic Cuvres}' by E. Brieskorn and H. Kn\"{o}rrer, translated by J. Stillwell.
+
+      The brief summary is that if $f$ and $g$ have a common divisor $h$, then $f=u h $ and $g=vh$, and so $vf -ug =0$, for non-zero $u,v$. By looking at the system of linear equations the coefficients must satisfy, you obtain the matrix $S(f,g)$.
+    \end{proof}
+
+    Given $f(x) = \sum_{i=0}^n \alpha_i x^i$ and $g(x) = \sum_{j=0}^m \beta_j x^j$ with roots $\mu_i$ and $\nu_i$ respectively, we can write $R(f,g)$ as $\alpha_0^m \beta_0^n \Pi (\mu_i \nu_j)$. To see this, first consider the factorisations of $f$ and $g$ into linear components. As $R$ vanishes when $f$ and $g$ have a common zero, there is some $i$ and $j$ s.t. $(\mu_i - \nu_j) | R(f,g)$ . As the linear forms $(\mu_i - \nu_j)$ are relatively prime, the resultant is divisible by their product.
+
+    For the full proof see Section 35 in `Algebra I' by B. L. van der Waerden.
+
+  \begin{rmk}[Fact]
+    Given a polynomial $f$, let $f'=\frac{df}{dx}$, then $R(f,f')= 0$ iff $f$ has a double root. This is the familiar object called the discriminant of $f$.
+  \end{rmk}
+
+  More generally, given two polynomials $f$ and $g$, the rank of $S(f,g)$ is closely related to the relative positions of the zeroes of $f$ and $g$. This is summarised by the following theorem:
+
+  \begin{thm}
+    \begin{itemize}
+      \item $S((f,g)$ is of full rank iff $f$ and $g$ have no common zeroes iff they are relatively prime
+      \item $S(f,g)$ has rank deficiency $d \le \min(\deg(f), \deg(g))$ iff $f$ and $g$ have exactly $d$ common zeroes iff they have a common factor of degree $d$
+    \end{itemize}
+  \end{thm}
+
+  Proof omitted in class due to time constraints.
+
+  We have another useful theorem (only part of it is stated):
+
+  \begin{thm}
+    If $f$ and $g$ have a common divisor $h$ of degree $d >0$ then the last $\deg(f) + \deg(g)- d$ columns of $S(f,g)$ are linearly independent.
+  \end{thm}
+
+\section{Multiples of Empirical Polynomials}
+  \begin{defn}
+    A polynomial $p$ is a pseudomultiple of $(\bar{s}, \varepsilon)$ if for $\delta = O(1)$ there are polynomials $\tilde{s}\in N_{\delta}(\bar{s}, \varepsilon)$ and $q \in \mathcal{P}$ such that $p=q \tilde{s}$.
+  \end{defn}
+
+  \begin{prop}
+    $p$ is a pseudomultiple of $(\bar{s}, \varepsilon)$, $\bar{s} \in \mathcal{P}_m$ iff there is a set of $m$ zeroes of $p$ which are simultaneous pseudozeros of $\bar{s}$.
+  \end{prop}
+
+%  Continuing along the path of our previous considerations, let $(\bar{s}, \varepsilon)$ be monic such that all $\tilde{s} \in N_\delta(\bar{s}, \varepsilon)$ are also monic. Dividing $p$ by $\bar{s}$ ($p=q\bar{s}$) we obtain a remainder $r$, and from here we can find the correction of $q$ such that $r=0$
+%  \[ p =
+\end{document}
