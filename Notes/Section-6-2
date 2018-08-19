@@ -163,7 +163,7 @@
   Given an empirical data quantity, we have an associated family of neighbourhoods $$N_{\delta}(\bar{\alpha}, \varepsilon)= \{ \tilde{\alpha} \mid | \tilde{alpha} - \bar{\alpha}| \le \delta \varepsilon \}, \, \delta \in \mathbb{R}_{0,+}$$ and if $\bar{\alpha}$ is in $\mathbb{R}$, we must specify if $\tilde{\alpha}$ is only in $\mathbb{R}$, or whether we allow $\tilde{\alpha} \in \mathbb{C}$.
 
   To generalise this to vectors in $\mathbb{K}^m$, we first introduce a specific norm. Given $\varepsilon = (\varepsilon_1, \ldots , \varepsilon_m)$, $\varepsilon_j > 0 $ for all $j$, we define the following norm on $\mathbb{K}^m$
-   \[ \norm{\tilde{\alpha} - \bar{\alpha}}^{\ast}_{\varepsilon} = \norm{( \ldots, \frac{|\tilde{\alpha_j}-\bar{\alpha_j}|}{\varepsilon_j}, \ldots) }^{\ast} \], with $\norm{ \cdot}^{\ast}$ the dual norm on $(\mathbb{K}^m)^{\ast}$.
+   \[ \norm{\tilde{\alpha} - \bar{\alpha}}^{\ast}_{\varepsilon} = \norm{\left( \ldots, \frac{|\tilde{\alpha_j}-\bar{\alpha_j}|}{\varepsilon_j}, \ldots \right) }^{\ast} \], with $\norm{ \cdot}^{\ast}$ the dual norm on $(\mathbb{K}^m)^{\ast}$.
 
   From this we obtain empirical polynomials. An empircal polynomial $(\bar{p} , \varepsilon)$ consists of a polynomial $\bar{p} \in \mathcal{P}^s$, $s \ge 1$, and a tolerance vector $\varepsilon \in \mathbb{K}^M$, defined as follows. Let
   \[ \emptyset \neq \tilde{J} := \{ j \in J \mid \bar{\alpha}_j \text{ is an empirical coefficient of } (\bar{p}, \varepsilon) \} \subset J \]
