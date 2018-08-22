@@ -160,10 +160,10 @@
 
   \end{defn}
 
-  Given an empirical data quantity, we have an associated family of neighbourhoods $$N_{\delta}(\bar{\alpha}, \varepsilon)= \{ \tilde{\alpha} \mid | \tilde{alpha} - \bar{\alpha}| \le \delta \varepsilon \}, \, \delta \in \mathbb{R}_{0,+}$$ and if $\bar{\alpha}$ is in $\mathbb{R}$, we must specify if $\tilde{\alpha}$ is only in $\mathbb{R}$, or whether we allow $\tilde{\alpha} \in \mathbb{C}$.
+  Given an empirical data quantity, we have an associated family of neighbourhoods $$N_{\delta}(\bar{\alpha}, \varepsilon)= \{ \tilde{\alpha} \mid | \tilde{\alpha} - \bar{\alpha}| \le \delta \varepsilon \}, \, \delta \in \mathbb{R}_{0,+}$$ and if $\bar{\alpha}$ is in $\mathbb{R}$, we must specify if $\tilde{\alpha}$ is only in $\mathbb{R}$, or whether we allow $\tilde{\alpha} \in \mathbb{C}$.
 
   To generalise this to vectors in $\mathbb{K}^m$, we first introduce a specific norm. Given $\varepsilon = (\varepsilon_1, \ldots , \varepsilon_m)$, $\varepsilon_j > 0 $ for all $j$, we define the following norm on $\mathbb{K}^m$
-   \[ \norm{\tilde{\alpha} - \bar{\alpha}}^{\ast}_{\varepsilon} = \norm{\left( \ldots, \frac{|\tilde{\alpha_j}-\bar{\alpha_j}|}{\varepsilon_j}, \ldots \right) }^{\ast} \], with $\norm{ \cdot}^{\ast}$ the dual norm on $(\mathbb{K}^m)^{\ast}$.
+   \[ \norm{\tilde{\alpha} - \bar{\alpha}}^{\ast}_{\varepsilon} = \norm{\left( \ldots, \frac{|\tilde{\alpha_j}-\bar{\alpha_j}|}{\varepsilon_j}, \ldots \right) }^{\ast}, \] with $\norm{ \cdot}^{\ast}$ the dual norm on $(\mathbb{K}^m)^{\ast}$.
 
   From this we obtain empirical polynomials. An empircal polynomial $(\bar{p} , \varepsilon)$ consists of a polynomial $\bar{p} \in \mathcal{P}^s$, $s \ge 1$, and a tolerance vector $\varepsilon \in \mathbb{K}^M$, defined as follows. Let
   \[ \emptyset \neq \tilde{J} := \{ j \in J \mid \bar{\alpha}_j \text{ is an empirical coefficient of } (\bar{p}, \varepsilon) \} \subset J \]
@@ -195,7 +195,7 @@
   \end{prop}
 
   \begin{proof}
-    If $\tilde{s}|(\bar{p}, \varepsilon)$, then all the zeros of $\tilde{s}$ are zeroes a $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ with $\delta=O(1)$.
+    If $\tilde{s}|_p(\bar{p}, \varepsilon)$, then all the zeros of $\tilde{s}$ are zeroes a $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ with $\delta=O(1)$.
 
     If the zeroes of $\tilde{s}$ are simultaneous pseudozeroes of $(\bar{p}, \varepsilon)$ then there is $\tilde{p} \in N_{\delta}(\bar{p}, \varepsilon)$ with $q\tilde{s}=\tilde{p} = \bar{p} + \Delta p$.
   \end{proof}
@@ -215,14 +215,14 @@
   We can write the linearisation using matrices as
   \[
     \begin{bmatrix}
-      (\Delta \gamma_l)_l & (\Delta \beta_j)_j
+      (\Delta \gamma_l)_l, & (\Delta \beta_j)_j
     \end{bmatrix}
     \begin{bmatrix}
-      \beta_0 & beta_1   & \ldots & \ldots & \ldots & \beta_n       & 0          & 0          & 0          & 0    \\
-        0    & beta_0   & beta_1   & \ldots & \ldots & \ldots     & \beta_n       & 0          & 0          & 0    \\
+      \beta_0 & \beta_1   & \ldots & \ldots & \ldots & \beta_{n-m}       & 0          & 0          & 0          & 0    \\
+        0    & \beta_0   & \  beta_1   & \ldots & \ldots & \ldots     & \beta_{n-m}       & 0          & 0          & 0    \\
         & \ldots & \ldots & \ldots & \ldots & \ldots     & \ldots     & \ldots    & 0    &   0   \\
-        0    & 0      & 0      & \beta_0   & \beta_1   & \ldots     & \ldots     & \beta_{n-1} & \beta_n       & 0    \\
-        0    & 0      & 0      & 0      & \beta_0   & \beta_1       & \ldots     & \ldots     & \beta_{n-1} & \beta_n \\
+        0    & 0      & 0      & \beta_0   & \beta_1   & \ldots     & \ldots     & \beta_{n-m+1} & \beta_{n-m}       & 0    \\
+        0    & 0      & 0      & 0      & \beta_0   & \beta_1       & \ldots     & \ldots     & \beta_{n-m+1} & \beta_{n-m} \\
         \gamma_0 & \gamma_1   & \ldots & \ldots & \ldots & \gamma_{m-1} & \gamma_m       & 0          & 0          & 0    \\
         0    & \gamma_0   & \gamma_1   & \ldots & \ldots & \ldots     & \gamma_{m-1} & \gamma_m      & 0          & 0    \\
         0    & 0      & \ldots & \ldots & \ldots & \ldots     & \ldots     & \ldots     &      0     &    0  \\
@@ -233,8 +233,6 @@
         1 \\
         x \\
         x^2 \\
-        \vdots \\
-        \vdots \\
         \vdots \\
         \vdots \\
         \vdots \\
@@ -253,28 +251,26 @@
         \vdots \\
         \vdots \\
         \vdots \\
-        \vdots \\
-        \vdots \\
         x^{n-1}
       \end{bmatrix}
   \]
 
-  or $(\Delta \gamma, \Delta \beta) S(q,s) \bf{x} = (\Delta \alpha) \bf{x}$. We call the $n \times n$ matrix $S(q,s)$ the ${\it Sylvester matrix}$ of $q$ and $s$.
+  or $(\Delta \gamma, \Delta \beta) S(q,s) \bf{x} = (\Delta \alpha) \bf{x}$. We call the $n \times n$ matrix $S(q,s)$ the $\textit{Sylvester matrix}$ of $q$ and $s$.
 
   \subsection{Properties of the Sylvester Matrix}
     The determinant of the Sylvester matrix $S(q,s)$ is called the Resultant $R(q,s)$ of the polynomials $q$ and $s$, and is a useful object for studying common divisors and zeroes of two polynomials:
 
     \begin{thm}
-      IF $A$ is a unique factorisation domain, take $f,g \in A[x]$. Then $f$ and $g$ have a non-constant common divisor iff $R(f,g)$ vanishes.
+      If $A$ is any field, çgiven $f,g \in A[x]$, $f$ and $g$ have a non-constant common divisor iff $R(f,g)$ vanishes.
     \end{thm}
 
     \begin{proof}
-      The full details can be found in Section 4.2 (Divisibility properties of polynomials) in `{\it Plane Algebraic Cuvres}' by E. Brieskorn and H. Kn\"{o}rrer, translated by J. Stillwell.
+      The full details can be found in Section 4.2 (Divisibility properties of polynomials) in `\textit{Plane Algebraic Cuvres}' by E. Brieskorn and H. Kn\"{o}rrer, translated by J. Stillwell.
 
       The brief summary is that if $f$ and $g$ have a common divisor $h$, then $f=u h $ and $g=vh$, and so $vf -ug =0$, for non-zero $u,v$. By looking at the system of linear equations the coefficients must satisfy, you obtain the matrix $S(f,g)$.
     \end{proof}
 
-    Given $f(x) = \sum_{i=0}^n \alpha_i x^i$ and $g(x) = \sum_{j=0}^m \beta_j x^j$ with roots $\mu_i$ and $\nu_i$ respectively, we can write $R(f,g)$ as $\alpha_0^m \beta_0^n \Pi (\mu_i \nu_j)$. To see this, first consider the factorisations of $f$ and $g$ into linear components. As $R$ vanishes when $f$ and $g$ have a common zero, there is some $i$ and $j$ s.t. $(\mu_i - \nu_j) | R(f,g)$ . As the linear forms $(\mu_i - \nu_j)$ are relatively prime, the resultant is divisible by their product.
+    Given $f(x) = \sum_{i=0}^n \alpha_i x^i$ and $g(x) = \sum_{j=0}^m \beta_j x^j$ with roots $\mu_i$ and $\nu_i$ respectively, we can write $R(f,g)$ as $\alpha_0^m - \beta_0^n \Pi (\mu_i - \nu_j)$. To see this, first consider the factorisations of $f$ and $g$ into linear components. As $R$ vanishes when $f$ and $g$ have a common zero, there is some $i$ and $j$ s.t. $(\mu_i - \nu_j) |_p R(f,g)$ . As the linear forms $(\mu_i - \nu_j)$ are relatively prime, the resultant is divisible by their product.
 
     For the full proof see Section 35 in `Algebra I' by B. L. van der Waerden.
 
